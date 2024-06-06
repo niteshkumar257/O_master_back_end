@@ -22,7 +22,14 @@ export const rollDice = async (req, res) => {
 export const updatePoints = async (req, res) => {
   const { user_id } = req.params;
   let { amount, result,type } = req.body;
-  if (result !== "win") amount = -1 * amount;
+  if (result !== "win") 
+    {
+      amount = -1 * amount;
+    }else
+    {
+       if(type==='7') amount=amount*5;
+       else amount=amount*2;
+    }
 
   if (!user_id) {
   return  res.status(404).json({
