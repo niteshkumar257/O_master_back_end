@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import userRouter from "./routes/userRoute.js";
 import gameRouter from "./routes/gameRoute.js";
 import { connectDb } from "./db/config.js";
+import { fileURLToPath } from 'url';
+import path from "path"
 
 dotenv.config();
 // dotenv
@@ -21,6 +23,12 @@ app.use(
 
 app.use(express.json({ limit: "16kb" })); // json body
 app.use(express.urlencoded({ extended: true })); // to decode the url special character
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, 'dist')));
+console.log(",jaldf",__filename);
 
 // routes
 app.get("/", (req, res) => {
